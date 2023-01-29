@@ -1,6 +1,9 @@
 angular.module('market', []).controller('indexController', function ($scope, $http) {
+    const contextPathProducts = 'http://localhost:8189/market/api/v1/products'
+    const contextPathCart = 'http://localhost:8189/market/api/v1/cart'
+
     $scope.fillTable = function () {
-        $http.get('http://localhost:8189/market/api/v1/products')
+        $http.get(contextPathProducts)
             .then(function (response) {
                 $scope.products = response.data;
                 // console.log(response);
@@ -8,7 +11,7 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
     };
 
     $scope.deleteProduct = function (id) {
-        $http.delete('http://localhost:8189/market/api/v1/products/' + id)
+        $http.delete(contextPathProducts + "/" + id)
             .then(function (response) {
                 $scope.fillTable();
             });
@@ -16,12 +19,55 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
 
     $scope.createNewProduct = function () {
         // console.log($scope.newProduct);
-        $http.post('http://localhost:8189/market/api/v1/products', $scope.newProduct)
+        $http.post(contextPathProducts, $scope.newProduct)
             .then(function (response) {
                 $scope.newProduct = null;
                 $scope.fillTable();
             });
     }
 
+    $scope.loadCart = function () {
+        $http.get(contextPathCart)
+            .then(function (response) {
+                $scope.cart = response.data;
+            });
+    }
+
+    $scope.addProductToCart = function (id) {
+        $http.get(contextPathCart + '/' + id)
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
+    $scope.clearCart = function () {
+        $http.delete(contextPathCart)
+            .then(function (response) {
+               $scope.loadCart();
+            });
+    }
+
+    $scope.decrementItem = function (productId) {
+        $http.put(contextPathCart + '/' + productId + '/?turn=false')
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
+    $scope.incrementItem = function (productId) {
+        $http.put(contextPathCart + '/' + productId + '/?turn=true')
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
+    $scope.forceDelete = function (productId){
+        $http.delete(contextPathCart + '/' + productId)
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
     $scope.fillTable();
+    $scope.loadCart();
 });

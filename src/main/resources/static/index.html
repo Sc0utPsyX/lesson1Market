@@ -36,10 +36,40 @@
             <td>{{p.price}}</td>
             <td>
                 <button class="btn btn-danger" ng-click="deleteProduct(p.id)">Удалить</button>
+            </td><td>
+                <button class="btn btn-info" ng-click="addProductToCart(p.id)">Добавить в корзину</button>
             </td>
         </tr>
         </tbody>
     </table>
+    <p></p>
+    <h3>Список товаров в корзине</h3>
+    <p></p>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Название</td>
+            <td>Цена</td>
+            <td>Количество</td>
+            <td>Полная цена</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in cart.productList">
+            <td>{{p.productId}}</td>
+            <td>{{p.productTitle}}</td>
+            <td>{{p.pricePerProduct}}</td>
+            <td><button class="btn btn-info" ng-click="decrementItem(p.productId)">-</button>
+                {{p.quantity}}
+                <button class="btn btn-info" ng-click="incrementItem(p.productId)">+</button></td>
+            <td>{{p.price}}</td>
+            <td><button class="btn btn-danger" ng-click="forceDelete(p.productId)">Удалить строку</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
     <p></p>
     <h3>Добавить продукт</h3>
     <p></p>

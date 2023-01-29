@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:mydatabase;MODE=PostgreSQL
+    url: jdbc:h2:mem:database;MODE=PostgreSQL
     username: sa
     password:
   jpa:
@@ -16,5 +16,6 @@ spring:
   h2:
     console:
       enabled: true
+      path: /db
       settings:
         web-allow-others: false
