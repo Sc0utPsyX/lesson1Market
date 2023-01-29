@@ -17,10 +17,23 @@ public class CartService {
     private final Cart cart;
 
 
-    public void addNewItemToCart(Long productId){
+    public void addItemToCart(Long productId){
         Product product = productService.findById(productId).orElseThrow();
-        cart.getProductList().add(product);
+        cart.add(product);
     }
 
+    public void clearCart(){
+        cart.clearCart();
+    }
+
+    public void decrementItemInCart(Long productId){
+        Product product = productService.findById(productId).orElseThrow();
+        cart.decrementQuantity(product);
+    }
+
+    public void forceDeleteItemInCart(Long productId){
+        Product product = productService.findById(productId).orElseThrow();
+        cart.forceRemove(product);
+    }
 
 }
