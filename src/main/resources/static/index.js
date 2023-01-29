@@ -11,7 +11,7 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
     };
 
     $scope.deleteProduct = function (id) {
-        $http.delete(contextPathProducts + id)
+        $http.delete(contextPathProducts + "/" + id)
             .then(function (response) {
                 $scope.fillTable();
             });
@@ -35,6 +35,34 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
 
     $scope.addProductToCart = function (id) {
         $http.get(contextPathCart + '/' + id)
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
+    $scope.clearCart = function () {
+        $http.delete(contextPathCart)
+            .then(function (response) {
+               $scope.loadCart();
+            });
+    }
+
+    $scope.decrementItem = function (productId) {
+        $http.put(contextPathCart + '/' + productId + '/?turn=false')
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
+    $scope.incrementItem = function (productId) {
+        $http.put(contextPathCart + '/' + productId + '/?turn=true')
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
+    $scope.forceDelete = function (productId){
+        $http.delete(contextPathCart + '/' + productId)
             .then(function (response) {
                 $scope.loadCart();
             });
