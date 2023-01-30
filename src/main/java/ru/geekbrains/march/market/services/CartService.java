@@ -3,6 +3,7 @@ package ru.geekbrains.march.market.services;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.march.market.aspect.Timer;
 import ru.geekbrains.march.market.entities.Cart;
 import ru.geekbrains.march.market.entities.Product;
 
@@ -16,12 +17,13 @@ public class CartService {
     private final ProductService productService;
     private final Cart cart;
 
-
+    @Timer
     public void addItemToCart(Long productId){
         Product product = productService.findById(productId).orElseThrow();
         cart.add(product);
     }
 
+    @Timer
     public void clearCart(){
         cart.clearCart();
     }
