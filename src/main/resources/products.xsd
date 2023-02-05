@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://www.geekbrains.com/march/market/soap/ProductSoap"
+        targetNamespace="http://www.geekbrains.com/march/market/soap/ProductSoap" elementFormDefault="qualified">
+
+    <xs:element name="getProductByTitleRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllProductsRequest">
+        <xs:complexType/>
+    </xs:element>
+
+    <xs:element name="getProductByTitleResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="productSoap" type="tns:productSoap"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllProductResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="productSoap" maxOccurs="unbounded" type="tns:productSoap"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="productSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="price" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
