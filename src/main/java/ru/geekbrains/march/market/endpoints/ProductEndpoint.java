@@ -8,8 +8,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import ru.geekbrains.march.market.services.ProductSoapService;
 import ru.geekbrains.march.market.soap.GetAllProductResponse;
 import ru.geekbrains.march.market.soap.GetAllProductsRequest;
-import ru.geekbrains.march.market.soap.GetProductByTitleRequest;
-import ru.geekbrains.march.market.soap.GetProductByTitleResponse;
+import ru.geekbrains.march.market.soap.GetProductByIdRequest;
+import ru.geekbrains.march.market.soap.GetProductByIdResponse;
 
 @Endpoint
 @RequiredArgsConstructor
@@ -22,17 +22,17 @@ public class ProductEndpoint {
 //    xmlns:f="http://www.geekbrains.com/march/market/soap/ProductSoap">
 //            <soapenv:Header/>
 //            <soapenv:Body>
-//                <f:getProductByTitleRequest>
-//                <f:title>Bread</f:title>
-//                </f:getProductByTitleRequest>
+//                <f:getProductByIdRequest>
+//                <f:id>2</f:id>
+//                </f:getProductByIdRequest>
 //            </soapenv:Body>
 //        </soapenv:Envelope>
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getProductByTitleRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getProductByIdRequest")
     @ResponsePayload
-    public GetProductByTitleResponse getProductByTitle(@RequestPayload GetProductByTitleRequest request){
-        GetProductByTitleResponse response = new GetProductByTitleResponse();
-        response.setProductSoap(productService.getByTitle(request.getTitle()));
+    public GetProductByIdResponse getProductByTitle(@RequestPayload GetProductByIdRequest request){
+        GetProductByIdResponse response = new GetProductByIdResponse();
+        response.setProductSoap(productService.getById(request.getId()));
         return response;
     }
 

@@ -27,8 +27,8 @@ public class ProductSoapService {
         return productRepository.findAll().stream().map(entityToSoap).collect(Collectors.toList());
     }
 
-    public ProductSoap getByTitle(String title) {
-        return productRepository.findByTitle(title).map(entityToSoap).orElseThrow();
-    }
 
+    public ProductSoap getById(long id) {
+        return productRepository.findById(id).map(entityToSoap).orElseThrow();
+    }
 }
