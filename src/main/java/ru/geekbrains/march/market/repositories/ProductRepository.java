@@ -11,4 +11,6 @@ import java.util.Optional;
 @Timer
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findById(Long id);
+
+    Optional<Product> findByTitle(String title);
 }
